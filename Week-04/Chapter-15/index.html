@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Notes - Chapter 15</title>
+    <meta charset="utf-8">
+    <meta name='description' content='A JavaScript Quiz Game'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <main>
+      <input type="button" id="close" onclick="window.close()" value="Return to Week 4"/>
+    </main>
+    <section>
+        <h2>Chapter 15: Modular Javascript</h2>
+          <p>"A module is a self-contained piece of code that provides functions and methods that can then be used in other files and by other modules. This helps to keep code organized in separate, reusable files, which improves code maintainability. The code in a module should have a single purpose, and group together functions with distinct functionality."</p>
+          <ul>
+            <li><h4>Importing and Exporting Modules</h4></li>
+            <li><p>Functions in a module have to be exported to be used by another file.</p>
+              <p>Example--> export const PI = 3.1415926;</p>
+              <p>They need to be imported into the file they are going to be used in:</p>
+              <p>Example--> import { PI } from './pi.js';</p></li>
+            <li><p>Single variables can also be exported as a default value like this:</p>
+              <p>Example--> const PI = 3.145926;</p>
+              <p>           export default PI;</p>
+              <p>They are imported like this:</p>
+              <p>Example--> import PI from './pi.js';</p></li>
+          </ul>
+    </section>
+  </body>
+</html>
