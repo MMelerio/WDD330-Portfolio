@@ -14,8 +14,8 @@ function getJSON(url) {
         });
 }
   
-function getPokemon(url) {
+function getPokemon(url = "https://pokeapi.co/api/v2/pokemon/clefairy/") {
     return getJSON(url);
 }
 
-sch.onclick = function() {getPokemon(url = "https://pokeapi.co/api/v2/pokemon/clefairy/")};
+sch.addEventListener("click", getPokemon);
