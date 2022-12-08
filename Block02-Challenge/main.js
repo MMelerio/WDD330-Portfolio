@@ -1,6 +1,6 @@
 const sch = document.getElementById("Search");
 
-function getJSON(url = "https://pokeapi.co/api/v2/pokemon/clefairy/") {
+function getJSON(url) {
     return fetch(url, {method: 'GET'})
         .then(function (response) {
         if (!response.ok) {
@@ -14,7 +14,7 @@ function getJSON(url = "https://pokeapi.co/api/v2/pokemon/clefairy/") {
         });
 }
   
-function getPokemon(url) {
+function getPokemon(url = "https://pokeapi.co/api/v2/pokemon/clefairy/") {
     return getJSON(url);
 }
 
