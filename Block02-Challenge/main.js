@@ -1,9 +1,9 @@
-const url = 'https://pokeapi.co/api/v2/pokemon/clefairy/'
+const url = 'https://pokeapi.co/api/v2/pokemon/clefairy/';
 
 const sch = document.getElementById("Search");
 
 function getJSON(url) {
-    return fetch(url)
+    return fetch(url, {method: 'GET'})
         .then(function (response) {
         if (!response.ok) {
           throw Error(response.statusText);
