@@ -1,5 +1,6 @@
 const sch = document.getElementById("Search"); 
-const add = document.getElementById("add");   
+const add = document.getElementById("add");
+const display = document.getElementById("display");
 
 const poke = document.getElementById("poke");
 
@@ -28,18 +29,15 @@ function displayPokemon(url) {
         console.log(data);
         result = data;
 
-        const display = document.getElementById("display");
-
         display.innerHTML = `
             <h2>${result.name}</h2>
             <img src=${result.sprites.front_default} width="250" height="250">
-            <p>Abilities: ${result.abilities[0].ability.name} and ${result.abilities[1].ability.name} </p>
+            <ol>Abilities:</ol>
+            <li>${result.abilities[0].ability.name}</li>
+            <li>${result.abilities[1].ability.name}</li>
             <button type="submit" id="add">Add to Team</button>
-            `;
-
-        updateLocalStorage(result);
-
-    }) 
+        `;
+    })
 }
 
 function getPokemonName() {
@@ -50,21 +48,22 @@ function getPokemonName() {
 
 
 // Update local storage
-function updateLocalStorage(result) {
+function updateLocalStorage() {
     // Store Pokemon in variable
     let new_poke = result.name;
 
     // Check inf local storage is empty
-    if(localStorage.getItem('mPoke') == null) {
-        localStorage.setItem('mPoke', '[]');
+    if(localStorage.getItem(new_poke) === null) {
+        localStorage.setItem(new_poke, new_poke);
+        window.alert("The pokemon has been added to your team!");;
+    } else {
+        window.alert("This pokemon is already on your team!");
     }
-
-    // retrieve items and add new pokemon to array
-    let stored_poke = JSON.parse(localStorage.getItem('mPoke'));
-    stored_poke.push(new_poke);
-
-    // save to local storage
-    localStorage.setItem('mPoke', JSON.stringify(stored_poke));
 }
 
 sch.addEventListener("click", getPokemonName);
+document.body.addEventListener( 'click', function ( event ) {
+    if( event.target.id == 'add' ) {
+      updateLocalStorage();
+    };
+  } );
