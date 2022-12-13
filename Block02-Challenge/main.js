@@ -1,4 +1,4 @@
-const sch = document.getElementById("Search"); 
+const sch = document.getElementById("search"); 
 const add = document.getElementById("add");
 const display = document.getElementById("display");
 const team = document.getElementById("team");
@@ -33,7 +33,7 @@ function displayPokemon(url) {
 
         display.innerHTML = `
             <h2>${result.name}</h2>
-            <img src=${result.sprites.front_default} width="250" height="250">
+            <img src=${result.sprites.front_default} width="200" height="200">
             <ol>Abilities:</ol>
             <li>${result.abilities[0].ability.name}</li>
             <li>${result.abilities[1].ability.name}</li>
@@ -43,7 +43,7 @@ function displayPokemon(url) {
 }
 
 function getPokemonName() {
-    let pName = poke.value;
+    let pName = poke.value.toLowerCase();
     let url = "https://pokeapi.co/api/v2/pokemon/"+pName+"/";
     displayPokemon(url);
 }
@@ -57,7 +57,7 @@ function displayPokemonTeam(name) {
 function displayMyTeam() {
     if(localStorage.length != 0) {
         team.innerHTML = `
-            <h2>My Pokemon Team</h2>
+            <h2>Your Pokemon Team</h2>
         `;
         myTeam = [];
         for(let i = 0; i < localStorage.length; i++) {
@@ -102,10 +102,13 @@ function updateLocalStorage() {
         displayMyTeam();
         window.alert("The pokemon has been added to your team!");
     }
+
+    poke.value = "";
+    display.innerHTML = "";
 }
 
 sch.addEventListener("click", getPokemonName);
-document.body.addEventListener( 'click', function ( event ) {
+display.addEventListener( 'click', function ( event ) {
     if( event.target.id == 'add' ) {
       updateLocalStorage();
     };
@@ -136,5 +139,4 @@ team.addEventListener( 'click', function ( event ) {
             }
         }
 });
-
 displayMyTeam();
