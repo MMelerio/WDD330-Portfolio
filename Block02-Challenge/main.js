@@ -169,5 +169,4 @@ team.addEventListener( 'click', function ( event ) {
             }
         }
 });
-localStorage.clear();
 displayMyTeam();
