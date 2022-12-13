@@ -1,8 +1,10 @@
 const sch = document.getElementById("Search"); 
 const add = document.getElementById("add");
 const display = document.getElementById("display");
+const team = document.getElementById("team");
 
 const poke = document.getElementById("poke");
+let myTeam = [];
 
 let result = "";
 
@@ -46,18 +48,59 @@ function getPokemonName() {
     displayPokemon(url);
 }
 
+function displayPokemonTeam(name) {
+    let tName = name;
+    let url = "https://pokeapi.co/api/v2/pokemon/"+tName+"/";
+    displayPokemon(url);
+}
+
+function displayMyTeam() {
+    if(localStorage.length != 0) {
+        team.innerHTML = `
+            <h2>My Pokemon Team</h2>
+        `;
+        myTeam = [];
+        for(let i = 0; i < localStorage.length; i++) {
+            myTeam.push(localStorage.getItem(i));
+        }
+        
+        for(let i = 0; i < myTeam.length; i++) {
+        
+        let newDiv = document.createElement("div");
+        let tName = document.createElement("h3");
+        tName.textContent = myTeam[i];
+        let tView = document.createElement("button");
+        tView.type = "submit";
+        tView.id = myTeam[i];
+        tView.textContent = "View Pokemon";
+        let tRemove = document.createElement("button");
+        tRemove.type = "submit";
+        tRemove.id = i;
+        tRemove.textContent = "Remove from Team";
+
+        team.append(newDiv, tName, tView, tRemove);
+        }
+    }
+}
 
 // Update local storage
 function updateLocalStorage() {
     // Store Pokemon in variable
     let new_poke = result.name;
 
-    // Check inf local storage is empty
-    if(localStorage.getItem(new_poke) === null) {
-        localStorage.setItem(new_poke, new_poke);
-        window.alert("The pokemon has been added to your team!");;
-    } else {
+    //Helper to check if the pokemon is already in localstorage
+    myTeam = [];
+    for(let i = 0; i < localStorage.length; i++) {
+        myTeam.push(localStorage.getItem(i));
+    }
+
+    if(myTeam.includes(new_poke)) {
         window.alert("This pokemon is already on your team!");
+    } else {
+        let nKey = localStorage.length;
+        localStorage.setItem(nKey, new_poke);
+        displayMyTeam();
+        window.alert("The pokemon has been added to your team!");
     }
 }
 
@@ -66,4 +109,32 @@ document.body.addEventListener( 'click', function ( event ) {
     if( event.target.id == 'add' ) {
       updateLocalStorage();
     };
-  } );
+  });
+team.addEventListener( 'click', function ( event ) {
+    myTeam = [];
+        for(let i = 0; i < localStorage.length; i++) {
+            myTeam.push(localStorage.getItem(i));
+        }
+        
+        for(let i = 0; i < myTeam.length; i++) {
+            if(event.target.id == i) {
+                localStorage.removeItem(i);
+                displayMyTeam();
+            }
+        }
+});
+team.addEventListener( 'click', function ( event ) {
+    myTeam = [];
+        for(let i = 0; i < localStorage.length; i++) {
+            myTeam.push(localStorage.getItem(i));
+        }
+        
+        for(let i = 0; i < myTeam.length; i++) {
+            if(event.target.id == myTeam[i]) {
+                let name = myTeam[i];
+                displayPokemonTeam(name);
+            }
+        }
+});
+
+displayMyTeam();
